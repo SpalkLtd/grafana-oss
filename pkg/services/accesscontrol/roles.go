@@ -419,8 +419,18 @@ func BuildBasicRoleDefinitions() map[string]*RoleDTO {
 			DisplayName: string(org.RoleNone),
 			Description: "None role",
 			Group:       "Basic",
-			Permissions: []Permission{},
-			Hidden:      true,
+			Permissions: []Permission{
+				//Spalk modification to allow "None" role to view dashboards without errors
+				{
+					Action: ActionAnnotationsRead,
+					Scope:  ScopeAnnotationsTypeOrganization,
+				},
+				{
+					Action: "datasources:query",
+					Scope:  "datasources:type:organization",
+				},
+			},
+			Hidden: true,
 		},
 		RoleGrafanaAdmin: {
 			Name:        BasicRolePrefix + "grafana_admin",

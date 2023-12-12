@@ -26,10 +26,11 @@ const (
 	proxyFieldLogin  = "Login"
 	proxyFieldRole   = "Role"
 	proxyFieldGroups = "Groups"
+	proxyFieldTeams  = "Teams"
 	proxyCachePrefix = "authn-proxy-sync-ttl"
 )
 
-var proxyFields = [...]string{proxyFieldName, proxyFieldEmail, proxyFieldLogin, proxyFieldRole, proxyFieldGroups}
+var proxyFields = [...]string{proxyFieldName, proxyFieldEmail, proxyFieldLogin, proxyFieldRole, proxyFieldGroups, proxyFieldTeams}
 
 var (
 	errNotAcceptedIP      = errutil.Unauthorized("auth-proxy.invalid-ip")

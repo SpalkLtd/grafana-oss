@@ -5,6 +5,7 @@ import (
 	"crypto/subtle"
 	"errors"
 	"net/mail"
+	"strconv"
 
 	"github.com/grafana/grafana/pkg/services/authn"
 	"github.com/grafana/grafana/pkg/services/login"
@@ -80,6 +81,15 @@ func (c *Grafana) AuthenticateProxy(ctx context.Context, r *authn.Request, usern
 
 	if v, ok := additional[proxyFieldGroups]; ok {
 		identity.Groups = util.SplitString(v)
+	}
+
+	if v, ok := additional[proxyFieldTeams]; ok {
+		identity.Teams = []int64{}
+		for _, val := range util.SplitString(v) {
+			if teamId, err := strconv.Atoi(val); err == nil {
+				identity.Teams = append(identity.Teams, int64(teamId))
+			}
+		}
 	}
 
 	identity.ClientParams.LookUpParams.Email = &identity.Email
